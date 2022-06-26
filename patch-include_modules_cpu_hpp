@@ -1,0 +1,16 @@
+--- include/modules/cpu.hpp.orig	Sat Jun 25 20:21:33 2022
++++ include/modules/cpu.hpp	Sun Jun 19 19:31:39 2022
+@@ -10,7 +10,13 @@
+   struct cpu_time {
+     unsigned long long user;
+     unsigned long long nice;
++#ifdef __OpenBSD__
++    unsigned long long sys;
++    unsigned long long spin;
++    unsigned long long intr;
++#else
+     unsigned long long system;
++#endif
+     unsigned long long idle;
+     unsigned long long steal;
+     unsigned long long total;

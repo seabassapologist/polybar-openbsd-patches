@@ -1,0 +1,18 @@
+--- cmake/cxx.cmake.orig	Sat Jun 25 20:16:33 2022
++++ cmake/cxx.cmake	Sun Jun 19 15:48:19 2022
+@@ -49,6 +49,15 @@
+   list(APPEND cxx_linker_base -L/usr/local/lib)
+ endif()
+ 
++if (CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
++  # Need dprintf() for FreeBSD 11.1 and older
++  # libinotify uses c99 extension, so suppress this error
++  list(APPEND cxx_base -Wno-c99-extensions)
++  # Ensures that libraries from dependencies in LOCALBASE are used
++  list(APPEND cxx_linker_base -L/usr/local/lib -L/usr/X11R6/lib -lintl -L/usr/local/lib/inotify -linotify -Wl,-rpath,/usr/local/lib/inotify)
++endif()
++
++
+ # Check compiler
+ if(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
+   list(APPEND cxx_base -Wno-error=parentheses-equality -Wno-zero-length-array)
