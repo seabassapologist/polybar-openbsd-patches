@@ -7,6 +7,8 @@ The following patches were adapted from [OpenBSD ports](https://cvsweb.openbsd.o
 * patch-src_modules_cpu_cpp
 * patch-src_modules_temperature_cpp
 
+___Note: I've only tested this on OpenBSD 7.1, I make no guarantees that it works on -current or not___
+
 ## Building
 
 Ensure build libraries are installed
